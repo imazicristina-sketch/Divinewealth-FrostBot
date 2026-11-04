@@ -1,10 +1,9 @@
 import mineflayer from "mineflayer";
-import { pathfinder, Movements, goals } from "mineflayer-pathfinder";
+import pathfinderPackage from "mineflayer-pathfinder";
 import collectBlockPlugin from "mineflayer-collectblock";
 
-const {
-  GoalNear
-} = goals;
+const { pathfinder, Movements, goals } = pathfinderPackage;
+const { GoalNear } = goals;
 
 const host = process.env.MC_HOST || "ry9.terohost.in";
 const port = Number(process.env.MC_PORT || 25866);
@@ -25,13 +24,7 @@ function startBot() {
 
   log(`Connecting to ${host}:${port} as ${username}...`);
 
-  const bot = mineflayer.createBot({
-    host,
-    port,
-    username,
-    auth,
-    version
-  });
+  const bot = mineflayer.createBot({ host, port, username, auth, version });
 
   bot.loadPlugin(pathfinder);
   bot.loadPlugin(collectBlockPlugin);
@@ -47,7 +40,7 @@ function startBot() {
   });
 
   bot.on("health", async () => {
-    if (isEating || !bot.food || bot.food >= 18) return;
+    if (isEating || bot.food == null || bot.food >= 18) return;
     isEating = true;
     try {
       const food = bot.inventory.items().find(item =>
@@ -104,15 +97,12 @@ function startBot() {
   });
 }
 
-process.on("SIGINT", () => {
+function shutdown() {
   stopping = true;
   clearTimeout(reconnectTimer);
   process.exit(0);
-});
-process.on("SIGTERM", () => {
-  stopping = true;
-  clearTimeout(reconnectTimer);
-  process.exit(0);
-});
+}
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
 
 startBot();
