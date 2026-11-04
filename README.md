@@ -1,24 +1,30 @@
-# Divinewealth FrostBot 1.0.2
+# Divinewealth FrostBot — Fixed starter
 
-This update fixes the CommonJS/ESM import error from `mineflayer-pathfinder` by importing the package as a default object and reading `pathfinder`, `Movements`, and `goals` from it.
+This project uses **CommonJS** consistently, so `mineflayer-pathfinder` is loaded using `require()` rather than incompatible ES-module named imports.
 
-## GitHub root files
-Upload `index.js`, `package.json`, `railway.json`, `.env.example`, `.gitignore`, and `README.md` directly into the repository root. Replace the previous versions.
+## Railway setup
+1. Upload these files to the **root** of your GitHub repository (same level as `package.json`).
+2. In Railway, connect that repository and branch `main`.
+3. In Railway → Settings → Deploy, leave the custom Build Command and Custom Start Command empty. Railway should detect `npm start` from `package.json`.
+4. In Railway → Variables, add the values from `.env.example`.
+5. Deploy the latest commit.
 
-## Railway
-Set Custom Start Command to `node index.js` (or leave it blank if Railway uses `npm start` from package.json). Commit the updated files to `main`, then deploy the latest commit.
+## Variables
+- `MC_HOST`: Minecraft server hostname
+- `MC_PORT`: Minecraft server port
+- `MC_USERNAME`: bot username (default `Divinewealth`)
+- `MC_AUTH`: `offline` for offline-mode servers, or the supported auth mode for your account
+- `MC_VERSION`: server version; use `26.3` only if the installed Mineflayer fork supports it
+- `MC_PASSWORD`: optional server `/login` password. Prefer a server-specific password and do not share it.
+- `AUTO_RECONNECT`: `true` or `false`
+- `TRUSTED_USERS`: optional comma-separated usernames allowed to use `!dw` commands
 
-## Railway Variables
-- `MC_HOST=ry9.terohost.in`
-- `MC_PORT=25866`
-- `MC_USERNAME=Divinewealth`
-- `MC_AUTH=offline` (only if your server is in offline/cracked mode; use the appropriate auth setting for your server)
-- `MC_VERSION=26.3`
-- `AUTO_RECONNECT=true`
+## Commands
+- `!dw help`
+- `!dw status`
+- `!dw come`
+- `!dw stop`
+- `!dw wood` — gathers a nearby tree when reachable.
 
-## Chat commands
-- `divinewealth come`
-- `divinewealth status`
-- `divinewealth stop`
-
-The bot attempts to eat suitable food from its inventory when its food level is low. Minecraft 26.3 protocol compatibility still depends on the Mineflayer fork supporting the server's exact protocol; a separate version error after startup means the protocol library needs updating.
+## Important compatibility note
+This is a clean starter, not a guarantee that every Minecraft version is supported by the Mineflayer fork. If the bot reports a protocol/version error for `26.3`, the Mineflayer package must be updated to a release/fork that explicitly supports that server protocol. The code also does not grant itself OP or Creative mode.
