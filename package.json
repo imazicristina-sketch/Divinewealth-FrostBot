@@ -1,0 +1,15 @@
+{
+  "name": "divinewealth-frostbot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "mineflayer": "npm:@wp2508/mineflayer@4.42.7",
+    "mineflayer-pathfinder": "^2.4.5",
+    "mineflayer-collectblock": "^1.5.0",
+    "vec3": "^0.1.10"
+  }
+}
