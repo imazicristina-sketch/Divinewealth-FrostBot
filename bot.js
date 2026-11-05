@@ -3,7 +3,7 @@ const mineflayer = require('./index.js')
 const bot = mineflayer.createBot({
   host: 'ry9.terohost.in',
   port: 25866,
-  username: 'YourMinecraftName',
+  username: 'Mira',
   auth: 'offline'
 })
 
