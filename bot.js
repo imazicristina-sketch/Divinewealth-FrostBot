@@ -7,7 +7,9 @@ const bot = mineflayer.createBot({
   auth: 'offline'
 })
 
-bot.on('login', () => console.log('SUCCESS: Bot logged in!'))
+bot.on('login', () => {
+  console.log('SUCCESS: Mira logged in!')
+})
 
 bot.on('kicked', reason => {
   console.log('KICKED:', reason)
