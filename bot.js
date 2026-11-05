@@ -7,6 +7,16 @@ const bot = mineflayer.createBot({
   auth: 'offline'
 })
 
-bot.on('login', () => console.log('Bot connected!'))
-bot.on('error', err => console.log('Bot error:', err))
-bot.on('end', () => console.log('Bot disconnected'))
+bot.on('login', () => console.log('SUCCESS: Bot logged in!'))
+
+bot.on('kicked', reason => {
+  console.log('KICKED:', reason)
+})
+
+bot.on('error', err => {
+  console.log('ERROR:', err)
+})
+
+bot.on('end', reason => {
+  console.log('DISCONNECTED:', reason)
+})
